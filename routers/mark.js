@@ -19,7 +19,7 @@ router.post('/add', async (req, res, next) => {
     try {
         const { latitude, longitude, title, description, rating } = req.body;
         const newMark = await Mark.create({ latitude, longitude, title, description, rating });
-        res.json({ newMark });
+        res.json(newMark);
     } catch (error) {
         next(error)
     }
