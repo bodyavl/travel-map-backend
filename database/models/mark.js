@@ -20,6 +20,10 @@ const markSchema = new Schema({
     rating: {
         type: Number,
         required: false
+    },
+    userId: {
+        type: String, 
+        required: true
     }
 })
 
