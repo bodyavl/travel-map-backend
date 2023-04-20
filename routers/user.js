@@ -62,6 +62,17 @@ router.post('/token', (req, res, next) => {
     }
 })
 
+router.delete('/logout', (req, res, next) => {
+  try {
+    const { refreshToken } = req.body;
+    if(!refreshToken) throw new Error("No token provided");
+    refreshTokens = refreshTokens.filter(token => token !== refreshToken);
+    res.sendStatus(200);
+  } catch (error) {
+    next(error);
+  }
+})
+
 function authToken(req, res, next) {
     const authHeader = req.headers['authorization'];
     const token = authHeader.split(' ')[1];
