@@ -22,7 +22,7 @@ router.post('/signup', async (req, res, next) => {
         const refreshToken = generateRefreshToken(user);
         refreshTokens.push(refreshToken);
     
-        res.status(200).send({ accessToken, refreshToken });
+        res.status(200).send({ accessToken, refreshToken, username: user.username });
       } catch (error) {
         next(error);
       }
@@ -39,7 +39,7 @@ router.post("/login", async (req, res, next) => {
         const accessToken = generateAccessToken(user);
         const refreshToken = generateRefreshToken(user);
         refreshTokens.push(refreshToken);
-        res.status(200).send({ accessToken, refreshToken });  
+        res.status(200).send({ accessToken, refreshToken, username: user.username });  
       } else res.sendStatus(403);
     } catch (error) {
       next(error);
