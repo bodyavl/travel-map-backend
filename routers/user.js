@@ -19,7 +19,7 @@ router.post('/signup', async (req, res, next) => {
         });
     
         const accessToken = generateAccessToken(user);
-        const refreshToken = jwt.sign({ userId: user._id, email: user.email }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '365d' });
+        const refreshToken = generateRefreshToken(user);
         refreshTokens.push(refreshToken);
     
         res.status(200).send({ accessToken, refreshToken });
@@ -37,7 +37,7 @@ router.post("/login", async (req, res, next) => {
       const isMatch = await bcrypt.compare(password, user.password);
       if (isMatch) {
         const accessToken = generateAccessToken(user);
-        const refreshToken = jwt.sign({ userId: user._id, email: user.email }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '365d' });
+        const refreshToken = generateRefreshToken(user);
         refreshTokens.push(refreshToken);
         res.status(200).send({ accessToken, refreshToken });  
       } else res.sendStatus(403);
@@ -76,6 +76,10 @@ function authToken(req, res, next) {
 
 function generateAccessToken(user) {
     return jwt.sign({ userId: user._id, email: user.email }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '30d' });
+}
+
+function generateRefreshToken(user) {
+  return jwt.sign({ userId: user._id, email: user.email }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '365d' });
 }
 
 module.exports = { userRouter: router, authToken };
