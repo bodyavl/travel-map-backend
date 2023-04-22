@@ -17,8 +17,9 @@ router.get('/', async (req, res, next) => {
 
 router.post('/add', async (req, res, next) => {
     try {
-        const { latitude, longitude, title, description, rating } = req.body;
-        const newMark = await Mark.create({ latitude, longitude, title, description, rating });
+        const { latitude, longitude, title, description, rating, username } = req.body;
+        const date = Date.now();
+        const newMark = await Mark.create({ latitude, longitude, title, description, rating, username, date });
         res.json(newMark);
     } catch (error) {
         next(error)

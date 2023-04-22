@@ -21,9 +21,13 @@ const markSchema = new Schema({
         type: Number,
         required: false
     },
-    userId: {
+    username: {
         type: String, 
-        required: false
+        required: true
+    },
+    date: {
+        type: Number,
+        required: true
     }
 })
 
