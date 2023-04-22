@@ -24,7 +24,6 @@ const markSchema = new Schema({
     username: {
         type: String, 
         required: true,
-        unique: true
     },
     date: {
         type: Number,
