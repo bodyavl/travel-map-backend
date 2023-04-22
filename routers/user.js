@@ -24,7 +24,13 @@ router.post('/signup', async (req, res, next) => {
     
         res.status(200).send({ accessToken, refreshToken, username: user.username });
       } catch (error) {
-        next(error);
+        if(error.code === 11000) {
+          res.sendStatus(400);
+        }
+        else{
+          next(error);
+        }
+        
       }
 });
 
