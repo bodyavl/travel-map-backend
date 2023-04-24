@@ -5,6 +5,8 @@ const express = require("express");
 const router = express.Router();
 const Mark = require('../database/models/mark');
 
+const { authToken } = require('./user');
+
 router.get('/', async (req, res, next) => {
     try {
         const marks = await Mark.find({});
@@ -15,7 +17,7 @@ router.get('/', async (req, res, next) => {
     }
 })
 
-router.post('/add', async (req, res, next) => {
+router.post('/add', authToken, async (req, res, next) => {
     try {
         const { latitude, longitude, title, description, rating, username } = req.body;
         const date = Date.now();
