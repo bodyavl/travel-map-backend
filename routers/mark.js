@@ -28,4 +28,16 @@ router.post('/add', authToken, async (req, res, next) => {
     }
 })
 
+router.put('/update/:id', authToken, async (req, res, next) => {
+    try {
+        const { id }  = req.params
+        const updatedMaker = req.body;
+        const updateDate = Date.now();
+        const marker = await Mark.findByIdAndUpdate(id, { ...updatedMaker, updateDate }, { new: true })
+        res.json(marker);
+    } catch (error) {
+        next(error)
+    }
+})
+
 module.exports = router;

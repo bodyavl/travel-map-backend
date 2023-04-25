@@ -26,8 +26,12 @@ const markSchema = new Schema({
         required: true,
     },
     date: {
-        type: Number,
+        type: Date,
         required: true
+    },
+    updateDate: {
+        type: Date,
+        required: false
     }
 })
 
