@@ -63,7 +63,7 @@ router.post('/token', (req, res, next) => {
         refreshTokens = refreshTokens.filter(token => token !== refreshToken);
         const newRefreshToken = generateRefreshToken({_id: user.userId, email: user.email})
         const accessToken = generateAccessToken({_id: user.userId, email: user.email});
-        res.json({ accessToken, newRefreshToken })
+        res.json({ accessToken, refreshToken: newRefreshToken })
         })
     } catch (error) {
         next(error);
