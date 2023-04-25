@@ -60,8 +60,10 @@ router.post('/token', (req, res, next) => {
 
         jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
         if (err) res.sendStatus(401);
+        refreshTokens = refreshTokens.filter(token => token !== refreshToken);
+        const newRefreshToken = generateRefreshToken({_id: user.userId, email: user.email})
         const accessToken = generateAccessToken({_id: user.userId, email: user.email});
-        res.json({ accessToken })
+        res.json({ accessToken, newRefreshToken })
         })
     } catch (error) {
         next(error);
