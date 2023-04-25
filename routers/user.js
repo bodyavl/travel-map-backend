@@ -94,11 +94,11 @@ function authToken(req, res, next) {
 }
 
 function generateAccessToken(user) {
-    return jwt.sign({ userId: user._id, email: user.email }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '30d' });
+    return jwt.sign({ userId: user._id, email: user.email }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '10m' });
 }
 
 function generateRefreshToken(user) {
-  return jwt.sign({ userId: user._id, email: user.email }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '365d' });
+  return jwt.sign({ userId: user._id, email: user.email }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '30d' });
 }
 
 module.exports = { userRouter: router, authToken };
