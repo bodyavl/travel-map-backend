@@ -95,7 +95,7 @@ function authToken(req, res, next) {
 }
 
 function generateAccessToken(user) {
-    return jwt.sign({ userId: user._id, email: user.email }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '20s' });
+    return jwt.sign({ userId: user._id, email: user.email }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1m' });
 }
 
 function generateRefreshToken(user) {
