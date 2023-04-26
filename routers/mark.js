@@ -42,8 +42,8 @@ router.put('/update/:id', authToken, async (req, res, next) => {
 
 router.delete('/delete/:id', authToken, async (req, res, next) => {
     try {
-        const { id }  = req.params;
-        const marker = Mark.findByIdAndRemove(id);
+        const { id } = req.params;
+        const marker = await Mark.findByIdAndDelete(id);
         res.json(marker);
     } catch (error) {
         next(error);
