@@ -17,7 +17,7 @@ const io = require('socket.io')(http, {
     }
 });
 
-app.use(cors({ credentials: true, origin: true, methods: "GET,HEAD,PUT,PATCH,POST,DELETE" }));
+app.use(cors({ credentials: true, origin: true, methods: ["GET","HEAD","PUT","PATCH","POST","DELETE"], preflightContinue: false }));
 app.use(express.urlencoded({extended: true}))
 app.use(bodyParser.json({type: 'application/json'}));
 
