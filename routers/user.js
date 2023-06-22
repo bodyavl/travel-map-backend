@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt');
 const User = require('../database/models/user');
 
 let refreshTokens = [];
+const MONGODBD_DUBLICATION_ERROR = 11000
 
 router.post('/signup', async (req, res, next) => {
     try {
@@ -22,9 +23,9 @@ router.post('/signup', async (req, res, next) => {
         const refreshToken = generateRefreshToken(user);
         refreshTokens.push(refreshToken);
     
-        res.status(200).send({ accessToken, refreshToken, username: user.username });
+        res.json({ accessToken, refreshToken, username: user.username });
       } catch (error) {
-        if(error.code === 11000) {
+        if(error.code === MONGODBD_DUBLICATION_ERROR) {
           res.sendStatus(400);
         }
         else{
@@ -45,7 +46,7 @@ router.post("/login", async (req, res, next) => {
         const accessToken = generateAccessToken(user);
         const refreshToken = generateRefreshToken(user);
         refreshTokens.push(refreshToken);
-        res.status(200).send({ accessToken, refreshToken, username: user.username });  
+        res.json({ accessToken, refreshToken, username: user.username });  
       } else res.sendStatus(403);
     } catch (error) {
       next(error);
@@ -69,6 +70,7 @@ router.post('/token', (req, res, next) => {
         next(error);
     }
 })
+
 
 router.delete('/logout', (req, res, next) => {
   try {

@@ -20,20 +20,18 @@ router.get('/', async (req, res, next) => {
 router.post('/add', authToken, async (req, res, next) => {
     try {
         const { latitude, longitude, title, description, rating, username } = req.body;
-        const date = Date.now();
-        const newMark = await Mark.create({ latitude, longitude, title, description, rating, username, date });
+        const newMark = await Mark.create({ latitude, longitude, title, description, rating, username });
         res.json(newMark);
     } catch (error) {
         next(error)
     }
 })
 
-router.put('/update/:id', authToken, async (req, res, next) => {
+router.patch('/update/:id', authToken, async (req, res, next) => {
     try {
         const { id }  = req.params
         const updatedMaker = req.body;
-        const updateDate = Date.now();
-        const marker = await Mark.findByIdAndUpdate(id, { ...updatedMaker, updateDate }, { new: true })
+        const marker = await Mark.findByIdAndUpdate(id, { ...updatedMaker }, { new: true })
         res.json(marker);
     } catch (error) {
         next(error)

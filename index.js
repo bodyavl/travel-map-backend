@@ -6,8 +6,16 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const app = express();
+const http = require('http').Server(app);
 const router = require('./routers/mark');
 const { userRouter } = require('./routers/user')
+const socketController = require('./controllers/socketController')
+
+const io = require('socket.io')(http, {
+    cors: {
+        origin: true
+    }
+});
 
 app.use(cors({ credentials: true, origin: true }));
 app.use(express.urlencoded({extended: true}))
@@ -25,7 +33,9 @@ function errorHandler(error, req, res, next) {
 
 app.use(errorHandler);
 
-app.listen(process.env.PORT || 5000, () => {
+io.on('connection', socketController)
+
+http.listen(process.env.PORT || 5000, () => {
     console.log('On port', process.env.PORT);
 })
 

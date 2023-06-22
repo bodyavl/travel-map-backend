@@ -24,15 +24,10 @@ const markSchema = new Schema({
     username: {
         type: String, 
         required: true,
-    },
-    date: {
-        type: Date,
-        required: true
-    },
-    updateDate: {
-        type: Date,
-        required: false
     }
+}, 
+{
+    timestamps: true
 })
 
 const Mark = mongoose.model('Mark', markSchema);
