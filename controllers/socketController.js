@@ -5,6 +5,7 @@ function socketController(socket) {
     console.log(`User ${socket.id} connected`)
     socket.on("new marker", async (id) => {
         const marker = await Mark.findById(id);
+        console.log(`add ${id}`)
         if(marker) socket.broadcast.emit('fetch new', marker)
     })
     socket.on("update marker", async (id) => {
